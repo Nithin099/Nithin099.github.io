@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nithin — Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12141a;
+    --bg-alt:#181b22;
+    --bg-raised:#1e222c;
+    --text:#edeae3;
+    --text-dim:#9a9fae;
+    --text-faint:#5c6070;
+    --accent:#6fcf97;
+    --accent-2:#5b7fde;
+    --border:#262a34;
+    --border-soft:#1d212a;
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{background:var(--accent); color:var(--bg);}
+
+  a{color:var(--accent-2); text-decoration:none; border-bottom:1px solid transparent;}
+  a:hover{border-bottom-color:currentColor;}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- top nav ---------- */
+  header.topnav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(18,20,26,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .topnav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+    max-width:760px;
+  }
+  .topnav .logo{
+    font-family:var(--mono); font-size:14px; color:var(--accent);
+  }
+  .topnav nav{display:flex; gap:22px; font-family:var(--mono); font-size:13px; color:var(--text-dim);}
+  .topnav nav a{color:var(--text-dim); border-bottom:none;}
+  .topnav nav a:hover{color:var(--text);}
+
+  /* ---------- hero / terminal ---------- */
+  .hero{padding:72px 0 56px;}
+  .terminal{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border);
+    font-family:var(--mono); font-size:12px; color:var(--text-faint);
+  }
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--border);}
+  .terminal-bar span.path{margin-left:6px;}
+  .terminal-body{
+    padding:22px 20px 26px;
+    font-family:var(--mono);
+    font-size:14.5px;
+    line-height:1.85;
+    min-height:170px;
+  }
+  .terminal-body .line{color:var(--text-dim);}
+  .terminal-body .prompt{color:var(--accent);}
+  .terminal-body .out{color:var(--text);}
+  .caret{
+    display:inline-block; width:8px; height:16px; background:var(--accent);
+    vertical-align:-3px; margin-left:2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  h1.headline{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(30px, 5vw, 42px);
+    line-height:1.15;
+    letter-spacing:-0.01em;
+    margin:34px 0 14px;
+    max-width:14ch;
+  }
+  .sub{
+    color:var(--text-dim);
+    font-size:17px;
+    max-width:52ch;
+    margin-bottom:22px;
+  }
+  .hero-links{display:flex; gap:18px; font-family:var(--mono); font-size:13.5px;}
+
+  /* ---------- section shell ---------- */
+  section{padding:56px 0; border-top:1px solid var(--border-soft);}
+  .section-head{
+    display:flex; align-items:baseline; gap:10px;
+    margin-bottom:26px;
+  }
+  .section-head .tag{
+    font-family:var(--mono); font-size:12.5px; color:var(--accent);
+  }
+  .section-head h2{
+    font-family:var(--serif); font-weight:500; font-size:23px;
+  }
+
+  /* ---------- about ---------- */
+  .about p{color:var(--text-dim); max-width:60ch; margin-bottom:14px;}
+  .about p .hl{color:var(--text);}
+
+  /* ---------- skills ---------- */
+  .skill-group{margin-bottom:18px;}
+  .skill-group .glabel{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-faint);
+    display:block; margin-bottom:9px;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:13px;
+    padding:5px 10px;
+    border:1px solid var(--border);
+    border-radius:4px;
+    color:var(--text-dim);
+    background:var(--bg-alt);
+  }
+  .chip.core{color:var(--accent); border-color:#2d4a3a;}
+
+  /* ---------- projects ---------- */
+  .project{
+    padding:22px 0;
+    border-top:1px solid var(--border-soft);
+  }
+  .project:first-child{border-top:none; padding-top:0;}
+  .project-path{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-faint);
+    margin-bottom:6px;
+  }
+  .project h3{
+    font-family:var(--serif); font-weight:500; font-size:19px;
+    margin-bottom:8px;
+  }
+  .project p{color:var(--text-dim); max-width:58ch; margin-bottom:10px; font-size:15.5px;}
+  .project .stack{
+    display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px;
+  }
+  .project .stack span{
+    font-family:var(--mono); font-size:11.5px; color:var(--accent-2);
+  }
+  .project .stack span:not(:last-child)::after{content:"·"; color:var(--text-faint); margin-left:7px;}
+  .project-links a{font-family:var(--mono); font-size:13px;}
+  .project-links a:not(:last-child){margin-right:16px;}
+  .placeholder-note{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint); font-style:normal;
+  }
+
+  /* ---------- roadmap ---------- */
+  .roadmap-item{
+    display:flex; gap:16px;
+    padding:14px 0;
+  }
+  .roadmap-item .idx{
+    font-family:var(--mono); font-size:13px; color:var(--text-faint);
+    width:24px; flex-shrink:0; padding-top:2px;
+  }
+  .roadmap-item .idx.done{color:var(--accent);}
+  .roadmap-item .body b{font-weight:500; color:var(--text);}
+  .roadmap-item .body p{color:var(--text-dim); font-size:14.5px; margin-top:3px;}
+
+  /* ---------- contact / footer ---------- */
+  footer{
+    border-top:1px solid var(--border-soft);
+    padding:50px 0 60px;
+  }
+  footer .terminal-body{min-height:auto;}
+  footer .terminal{max-width:100%;}
+
+  @media (max-width:560px){
+    .topnav nav{gap:14px;}
+    .hero{padding:48px 0 40px;}
+    h1.headline{font-size:28px;}
+    section{padding:42px 0;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .caret{animation:none; opacity:1;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="wrap">
+    <div class="logo">nithin<span style="color:var(--text-faint)">.dev</span></div>
+    <nav>
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#roadmap">roadmap</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <span class="path">~/nithin</span>
+      </div>
+      <div class="terminal-body" id="termBody"></div>
+    </div>
+
+    <h1 class="headline">Backend developer, in progress — with production support experience already behind it.</h1>
+    <p class="sub">I'm Nithin, currently a Jr. Product Support Engineer at IFS Softeon, rebuilding toward a Python backend role — FastAPI, SQL, and the systems underneath the support tickets I used to close.</p>
+    <div class="hero-links">
+      <a href="#projects">see the work →</a>
+      <a href="mailto:you@example.com">email</a>
+      <a href="https://github.com/yourusername" target="_blank">github</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="tag">01</span><h2>about</h2></div>
+    <div class="about">
+      <p><span class="hl">I started on the support side</span> — triaging issues, reading logs, understanding why a system behaves the way it does before touching any code. That's the habit I'm carrying into backend development: I want to build the systems I used to explain to other people.</p>
+      <p>I'm based in Chennai, working through a structured roadmap toward a backend role — <span class="hl">FastAPI, REST APIs, SQL, Linux, Git, and AWS fundamentals</span> — while applying to Python developer and software engineering roles in parallel.</p>
+      <p>Outside of that, I've worked hands-on with <span class="hl">OpenCV and TensorFlow</span> on smaller applied projects — image restoration, sentiment analysis, computer vision — which is where a lot of my Python fluency actually comes from.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="tag">02</span><h2>skills</h2></div>
+
+    <div class="skill-group">
+      <span class="glabel">core</span>
+      <div class="chips">
+        <span class="chip core">Python</span>
+        <span class="chip core">Django</span>
+        <span class="chip core">Flask</span>
+        <span class="chip core">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <span class="glabel">in progress</span>
+      <div class="chips">
+        <span class="chip">FastAPI</span>
+        <span class="chip">Linux</span>
+        <span class="chip">Git</span>
+        <span class="chip">AWS basics</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <span class="glabel">applied / ml tooling</span>
+      <div class="chips">
+        <span class="chip">TensorFlow</span>
+        <span class="chip">OpenCV</span>
+        <span class="chip">Pandas</span>
+        <span class="chip">NumPy</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="tag">03</span><h2>projects</h2></div>
+
+    <div class="project">
+      <div class="project-path">~/projects/agri-tech-hydroponics</div>
+      <h3>Agri-Tech Hydroponics System</h3>
+      <p class="placeholder-note">[Replace with 1–2 sentences: what it monitors/controls, and one concrete result — e.g. "cut manual monitoring time by X%."]</p>
+      <div class="stack"><span>Python</span><span>Sensors/IoT</span><span>Data logging</span></div>
+      <div class="project-links"><a href="#">code</a><a href="#">writeup</a></div>
+    </div>
+
+    <div class="project">
+      <div class="project-path">~/projects/sentiment-analysis-movies</div>
+      <h3>Sentiment Analysis — Movie Reviews</h3>
+      <p class="placeholder-note">[Replace with: dataset used, model approach, and accuracy/result achieved.]</p>
+      <div class="stack"><span>Python</span><span>TensorFlow</span><span>NLP</span></div>
+      <div class="project-links"><a href="#">code</a><a href="#">writeup</a></div>
+    </div>
+
+    <div class="project">
+      <div class="project-path">~/projects/face-mask-detection</div>
+      <h3>Face Mask Detection System</h3>
+      <p class="placeholder-note">[Replace with: real-time or static detection, model used, and where it was tested/deployed.]</p>
+      <div class="stack"><span>Python</span><span>OpenCV</span><span>TensorFlow</span></div>
+      <div class="project-links"><a href="#">code</a><a href="#">writeup</a></div>
+    </div>
+
+    <div class="project">
+      <div class="project-path">~/projects/image-restoration</div>
+      <h3>Image Restoration Toolkit</h3>
+      <p class="placeholder-note">[Replace with: what kind of damage it restores — noise, scratches, low-res — and how.]</p>
+      <div class="stack"><span>Python</span><span>OpenCV</span><span>PIL</span></div>
+      <div class="project-links"><a href="#">code</a></div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="section-head"><span class="tag">04</span><h2>roadmap</h2></div>
+
+    <div class="roadmap-item">
+      <div class="idx done">✓</div>
+      <div class="body"><b>Foundations</b><p>Python fluency, applied ML projects, core support-engineering experience at IFS Softeon.</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="idx done">✓</div>
+      <div class="body"><b>Backend fundamentals</b><p>Django, Flask, SQL — building and shipping real applications, not just tutorials.</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="idx">03</div>
+      <div class="body"><b>FastAPI, Linux, Git, AWS basics</b><p>Rounding out the stack most backend job descriptions actually ask for.</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="idx">04</div>
+      <div class="body"><b>Applying, in earnest</b><p>Resume tailored per role, roughly a 90-day runway, target: an offer before the end of 2026.</p></div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="section-head"><span class="tag">05</span><h2>contact</h2></div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <span class="path">~/nithin/contact</span>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">$</span> cat contact.txt</div>
+        <div class="out">email  &nbsp;<a href="mailto:you@example.com">you@example.com</a></div>
+        <div class="out">github &nbsp;<a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></div>
+        <div class="out">linkedin &nbsp;<a href="https://linkedin.com/in/yourusername" target="_blank">linkedin.com/in/yourusername</a></div>
+        <div class="out">resume &nbsp;<a href="#">download PDF</a></div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // One orchestrated hero moment: a typed terminal line, then a resolved output.
+  const el = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const typedLine = "whoami --role";
+  const output = [
+    "Nithin — Jr. Product Support Engineer → Python Backend Developer",
+    "location: Chennai, India",
+    "status: rebuilding the stack, one phase at a time"
+  ];
+
+  function renderStatic(){
+    el.innerHTML =
+      `<div class="line"><span class="prompt">$</span> ${typedLine}</div>` +
+      output.map(l => `<div class="out">${l}</div>`).join('');
+  }
+
+  if (reduceMotion) {
+    renderStatic();
+  } else {
+    let i = 0;
+    const promptSpan = document.createElement('div');
+    promptSpan.className = 'line';
+    promptSpan.innerHTML = `<span class="prompt">$</span> `;
+    const typedSpan = document.createElement('span');
+    const caret = document.createElement('span');
+    caret.className = 'caret';
+    promptSpan.appendChild(typedSpan);
+    promptSpan.appendChild(caret);
+    el.appendChild(promptSpan);
+
+    const typer = setInterval(() => {
+      typedSpan.textContent += typedLine[i];
+      i++;
+      if (i >= typedLine.length) {
+        clearInterval(typer);
+        caret.remove();
+        setTimeout(() => {
+          output.forEach((line, idx) => {
+            setTimeout(() => {
+              const d = document.createElement('div');
+              d.className = 'out';
+              d.style.opacity = 0;
+              d.textContent = line;
+              el.appendChild(d);
+              requestAnimationFrame(() => {
+                d.style.transition = 'opacity 0.3s ease';
+                d.style.opacity = 1;
+              });
+            }, idx * 220);
+          });
+        }, 250);
+      }
+    }, 45);
+  }
+</script>
+
+</body>
+</html>
